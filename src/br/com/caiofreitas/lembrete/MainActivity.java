@@ -1,6 +1,8 @@
 package br.com.caiofreitas.lembrete;
 
+import br.com.caiofreitas.lembrete.service.LocationService;
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +14,8 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        startService(new Intent(MainActivity.this, LocationService.class));
     }
 
 
