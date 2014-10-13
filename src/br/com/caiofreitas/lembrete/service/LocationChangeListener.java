@@ -1,5 +1,6 @@
 package br.com.caiofreitas.lembrete.service;
 
+import br.com.caiofreitas.lembrete.model.Coordenada;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,10 +18,11 @@ public class LocationChangeListener implements LocationListener {
 	
 	@Override
 	public void onLocationChanged(Location location) {
-		double latitude = location.getLatitude();
-		double longitude = location.getLongitude();
-		Log.i("Latitude: ", String.valueOf(latitude));
-		Log.i("Latitude: ", String.valueOf(longitude));
+		
+		Coordenada coordenadaCorrente = new Coordenada(location.getLatitude(), location.getLongitude());
+		
+		Log.i("Latitude: ", String.valueOf(coordenadaCorrente.getLatitude()));
+		Log.i("Longitude: ", String.valueOf(coordenadaCorrente.getLongitude()));
 		
 	}
 
@@ -40,6 +42,19 @@ public class LocationChangeListener implements LocationListener {
 	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		
+		Location A = new Location("");
+		A.setLatitude(-22.471654);
+		A.setLongitude(-43.160215);
+		
+		Location B = new Location("");
+		B.setLatitude(-22.529298);
+		B.setLongitude(-43.216882);
+		
+		System.out.println( A.distanceTo(B));
 	}
 
 }
