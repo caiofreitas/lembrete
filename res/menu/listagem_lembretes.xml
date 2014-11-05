@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.com.caiofreitas.lembrete.ListagemLembretes" >
+
+    <item
+        android:id="@+id/novo"
+        android:title="@string/novo"
+        android:showAsAction="always"
+        />
+    
+
+</menu>
