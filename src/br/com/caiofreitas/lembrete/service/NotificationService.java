@@ -1,56 +1,28 @@
 package br.com.caiofreitas.lembrete.service;
 
-import java.util.List;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import br.com.caiofreitas.lembrete.MainActivity;
+import br.com.caiofreitas.lembrete.FormularioActivity;
 import br.com.caiofreitas.lembrete.dao.LembreteDAO;
 import br.com.caiofreitas.lembrete.model.Lembrete;
 
 public class NotificationService {
 
-	private static final int RAIO = 250;
 	private Context context;
 	
 	public NotificationService(Context context){
 		this.context = context;
 	}
 	
-	
-	public void notificar(Location location) {
+	public void enviar(Lembrete lembrete) {
 		
-		LembreteDAO dao = new LembreteDAO(this.context);
-		
-		List<Lembrete> lembretes = dao.getLembretes();
-		dao.close();
-		
-		for (Lembrete lembrete : lembretes) {
-		
-			if(verificaProximidade(lembrete, location)) {
-				sendBasicNotification(lembrete);
-			}
-		}
-	}
-	
-	private boolean verificaProximidade(Lembrete lembrete, Location location) {
-		Location lembreteLocation = new Location("");
-		lembreteLocation.setLatitude(lembrete.getLatitude());
-		lembreteLocation.setLongitude(lembrete.getLongitude());
-		float dist = lembreteLocation.distanceTo(location);		
-		return dist <= RAIO && lembrete.notificar();
-	}
-	
-	private void sendBasicNotification(Lembrete lembrete) {
-		
-		Intent intent = new Intent(context, MainActivity.class);
+		Intent intent = new Intent(context, FormularioActivity.class);
 		intent.putExtra("lembreteSelecionado", lembrete);
 		PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 		

@@ -22,7 +22,7 @@ import br.com.caiofreitas.lembrete.dao.LembreteDAO;
 import br.com.caiofreitas.lembrete.model.Lembrete;
 import br.com.caiofreitas.lembrete.service.LocationService;
 
-public class ListagemLembretes extends Activity {
+public class ListagemLembretesActivity extends Activity {
 
 	private ListView lista;
 	private Lembrete lembrete;
@@ -50,7 +50,7 @@ public class ListagemLembretes extends Activity {
 				
 				Lembrete lembrete = (Lembrete) parent.getItemAtPosition(position);
 				
-				Intent intent = new Intent(ListagemLembretes.this, MainActivity.class);
+				Intent intent = new Intent(ListagemLembretesActivity.this, FormularioActivity.class);
 				intent.putExtra("lembreteSelecionado", lembrete);
 				startActivity(intent);
 			}
@@ -84,7 +84,7 @@ public class ListagemLembretes extends Activity {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				
-				LembreteDAO dao = new LembreteDAO(ListagemLembretes.this);
+				LembreteDAO dao = new LembreteDAO(ListagemLembretesActivity.this);
 				dao.remover(lembrete);
 				dao.close();
 				
@@ -112,7 +112,7 @@ public class ListagemLembretes extends Activity {
 		
 		switch (itemClicado) {
 		case R.id.novo:
-			Intent it = new Intent(this, MainActivity.class);
+			Intent it = new Intent(this, FormularioActivity.class);
 			startActivity(it);
 			break;
 

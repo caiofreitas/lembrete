@@ -4,6 +4,7 @@ package br.com.caiofreitas.lembrete;
 import java.io.IOException;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -44,7 +45,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends FragmentActivity implements 
+@SuppressLint("InflateParams")
+public class FormularioActivity extends FragmentActivity implements 
 GooglePlayServicesClient.ConnectionCallbacks,
 GooglePlayServicesClient.OnConnectionFailedListener {
 
@@ -65,7 +67,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			setContentView(R.layout.activity_map);
 
 			if (initMap()) {
-				//				mMap.setMyLocationEnabled(true);
+				//	mMap.setMyLocationEnabled(true);
 				mLocationClient = new LocationClient(this, this, this);
 				mLocationClient.connect();
 			}
@@ -94,11 +96,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 			lembreteEditText.setText(lembreteParaEditar.getTexto());
 			switch1.setChecked(lembreteParaEditar.notificar());
 
-			MainActivity.this.setMarker("", "", 
+			FormularioActivity.this.setMarker("", "", 
 					lembreteParaEditar.getLatitude(), lembreteParaEditar.getLongitude());
-			
-			
-			
 		}
 		
 		btn.setOnClickListener(new OnClickListener() {
@@ -135,14 +134,14 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 				}
 				
 				if (marker == null) {
-					Toast.makeText(MainActivity.this, "Selecione um ponto no mapa", Toast.LENGTH_SHORT).show();
+					Toast.makeText(FormularioActivity.this, "Selecione um ponto no mapa", Toast.LENGTH_SHORT).show();
 				}
 				
 				if((lembrete.getTitulo() != null && !lembrete.getTitulo().isEmpty())
 					&&	(lembrete.getTexto() != null || !lembrete.getTexto().isEmpty())
 					&& marker != null) {
 				
-					LembreteDAO dao = new LembreteDAO(MainActivity.this);
+					LembreteDAO dao = new LembreteDAO(FormularioActivity.this);
 				
 					if (lembreteParaEditar == null) {
 						dao.save(lembrete);		
@@ -225,7 +224,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 					
 					@Override
 					public void onMapClick(LatLng ll) {
-						MainActivity.this.setMarker("", "", 
+						FormularioActivity.this.setMarker("", "", 
 								ll.latitude, ll.longitude);
 					}
 				});

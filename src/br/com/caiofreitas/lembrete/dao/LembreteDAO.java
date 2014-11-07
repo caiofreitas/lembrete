@@ -28,6 +28,7 @@ public class LembreteDAO extends SQLiteOpenHelper{
 		values.put("texto", lembrete.getTexto());
 		values.put("latitude", lembrete.getLatitude());
 		values.put("longitude", lembrete.getLongitude());
+		values.put("notificar", lembrete.notificar());
 		
 		getWritableDatabase().insert("Lembrete", null, values);
 	}

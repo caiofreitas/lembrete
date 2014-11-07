@@ -3,6 +3,7 @@ package br.com.caiofreitas.lembrete.service;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import br.com.caiofreitas.lembrete.actions.LembretesProximos;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -12,31 +13,21 @@ import com.google.android.gms.location.LocationRequest;
 
 
 public class LocationChangeListener implements LocationListener, 
-
-GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener{
+									GooglePlayServicesClient.ConnectionCallbacks, 
+									GooglePlayServicesClient.OnConnectionFailedListener{
 	
-	private Context context;
 	private LocationClient locationClient;
+	private LembretesProximos lembretesProximos;
 	
 	public LocationChangeListener(Context context) {
-		this.context = context;
 		locationClient = new LocationClient(context, this, this);
 		locationClient.connect();
+		lembretesProximos = new LembretesProximos(context);
 	}
 	
 	@Override
 	public void onLocationChanged(Location location) {
-//		String msg = location.getLatitude() + ", " + location.getLongitude();
-//		Toast.makeText(this.context, msg, Toast.LENGTH_SHORT).show();
-		NotificationService notificationService = new NotificationService(context);
-		notificationService.notificar(location);
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
-		
+		lembretesProximos.verificar(location);		
 	}
 
 	@Override
@@ -52,9 +43,12 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	}
 
 	@Override
+	public void onConnectionFailed(ConnectionResult arg0) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
-		
 	}
-
 }
